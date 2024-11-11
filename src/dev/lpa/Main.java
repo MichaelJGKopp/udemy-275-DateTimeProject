@@ -54,5 +54,17 @@ public class Main {
     System.out.println(May5.plusWeeks(52));
     System.out.println(May5.plus(365, ChronoUnit.DAYS));
     System.out.println();
+//     LocalDate comparisons
+    System.out.println("May5 > today? " + May5.isAfter(today));
+    System.out.println("May5 < today? " + May5.isBefore(today));
+    System.out.println("May5 > today? " + May5.compareTo(today)); // implements Comparable
+    System.out.println("May5 < today? " + today.compareTo(May5));
+    System.out.println();
+    System.out.println("today = now? " + today.compareTo(LocalDate.now()));
+    System.out.println("today = now? " + today.equals(LocalDate.now()));
+    System.out.println("today = now? " + today.isEqual(LocalDate.now()));
+    System.out.println();
+    System.out.println("isLeapYear? " + today.isLeapYear());
+    System.out.println("isLeapYear? " + May5.minusYears(2).isLeapYear());
   }
 }
