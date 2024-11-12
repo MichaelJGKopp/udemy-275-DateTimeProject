@@ -1,6 +1,9 @@
 package dev.lpa;
 
 import java.time.ZoneId;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.TimeZone;
 
 public class ZonedDateTimeMain {
   
@@ -17,5 +20,18 @@ public class ZonedDateTimeMain {
       .sorted()
       .map(ZoneId::of)
       .forEach(z -> System.out.println(z.getId() + ": " + z.getRules()));
+    
+    Set<String> jdk8Zones = ZoneId.getAvailableZoneIds();
+    String[] alternate = TimeZone.getAvailableIDs();  // only use for legacy code
+    Set<String> oldway = new HashSet<>(Set.of(alternate));
+    
+//    jdk8Zones.removeAll(oldway);
+//    System.out.println(jdk8Zones);
+    
+    oldway.removeAll(jdk8Zones);
+    System.out.println(oldway);
+    ZoneId bet = ZoneId.of("BET", ZoneId.SHORT_IDS);
+    System.out.println(bet);
+    
   }
 }
