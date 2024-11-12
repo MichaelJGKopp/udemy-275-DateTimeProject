@@ -3,6 +3,7 @@ package dev.lpa;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
+import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAdjusters;
 import java.util.*;
 
@@ -97,5 +98,15 @@ public class ZonedDateTimeMain {
     Duration timeSince2 =
       Duration.between(Instant.EPOCH, dob2.toInstant(ZoneOffset.UTC)); // dob is given in UTC time
     System.out.println(timeSince2);  // PT438288H1M PeriodTime #Hours #Minutes
+    
+    for (ChronoUnit u : ChronoUnit.values()) {
+      if (u.isSupportedBy(LocalDate.EPOCH)) {
+        long val = u.between(LocalDate.EPOCH, dob2.toLocalDate());
+        System.out.println(u + " past = " + val);
+      } else {
+        System.out.println("-- Not supported: " + u);
+      }
+    }
+    
   }
 }
