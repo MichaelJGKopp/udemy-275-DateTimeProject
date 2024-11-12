@@ -4,16 +4,15 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.TimeZone;
+import java.time.format.FormatStyle;
+import java.util.*;
 
 public class ZonedDateTimeMain {
   
   public static void main(String[] args) {
     
     System.setProperty("user.timezone", "America/Los_Angeles"); // set user timezone AT START
+    Locale.setDefault(Locale.US);
 //    System.setProperty("user.timezone", "UTC"); // difference to printing Instant.now() is the z
 //    System.setProperty("user.timezone", "GMT"); // difference to UTC < 1s, appears the same
     System.out.println(ZoneId.systemDefault());
@@ -50,7 +49,8 @@ public class ZonedDateTimeMain {
     for (ZoneId z : List.of(
       ZoneId.of("Australia/Sydney"),
       ZoneId.of("Europe/Paris"),
-      ZoneId.of("America/New_York")
+      ZoneId.of("America/New_York"),
+      ZoneId.of("America/Los_Angeles")
     )) {
       DateTimeFormatter zoneFormat = DateTimeFormatter.ofPattern("z:zzzz"); // timezone for date
       System.out.println(z);
@@ -58,5 +58,11 @@ public class ZonedDateTimeMain {
       System.out.println("\t" + z.getRules().getDaylightSavings(instantNow));
       System.out.println("\t" + z.getRules().isDaylightSavings(instantNow));
     }
+    
+    Instant dobInstant = Instant.parse("2020-01-01T08:01:00Z");
+    LocalDateTime dob =
+      LocalDateTime.ofInstant(dobInstant, ZoneId.systemDefault());
+    System.out.println("Your kid's birthdate, LA time: "
+                         + dob.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)));
   }
 }
