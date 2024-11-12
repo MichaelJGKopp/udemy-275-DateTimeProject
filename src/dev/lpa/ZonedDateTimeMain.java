@@ -108,5 +108,15 @@ public class ZonedDateTimeMain {
       }
     }
     
+    System.out.println("--------------------------------------------");
+    LocalDateTime ldt = LocalDateTime.ofInstant(Instant.EPOCH, ZoneOffset.UTC);
+    for (ChronoUnit u : ChronoUnit.values()) {
+      if (u.isSupportedBy(ldt)) {
+        long val = u.between(ldt, dob2);
+        System.out.println(u + " past = " + val);
+      } else {
+        System.out.println("-- Not supported: " + u);
+      }
+    }
   }
 }
