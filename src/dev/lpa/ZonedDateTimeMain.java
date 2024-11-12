@@ -3,8 +3,10 @@ package dev.lpa;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
+import java.time.temporal.TemporalAdjusters;
 import java.util.*;
 
 public class ZonedDateTimeMain {
@@ -30,7 +32,7 @@ public class ZonedDateTimeMain {
     Set<String> jdk8Zones = ZoneId.getAvailableZoneIds();
     String[] alternate = TimeZone.getAvailableIDs();  // only use for legacy code
     Set<String> oldway = new HashSet<>(Set.of(alternate));
-    
+
 //    jdk8Zones.removeAll(oldway);
 //    System.out.println(jdk8Zones);
     
@@ -64,5 +66,19 @@ public class ZonedDateTimeMain {
       LocalDateTime.ofInstant(dobInstant, ZoneId.systemDefault());
     System.out.println("Your kid's birthdate, LA time: "
                          + dob.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)));
+    
+    ZonedDateTime dobSydney =
+      ZonedDateTime.ofInstant(dobInstant, ZoneId.of("Australia/Sydney"));
+    System.out.println("Your kid's birthdate, Sydney time: " + dobSydney.format(
+      DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)));
+    
+    ZonedDateTime dobHere = dobSydney.withZoneSameInstant(ZoneId.systemDefault());
+    System.out.println("Your kid's birthdate, Here Time = " + dobHere.format(
+      DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)));
+    
+    ZonedDateTime firstOfMonth = ZonedDateTime.now()
+                                   .with(TemporalAdjusters.firstDayOfMonth());
+    System.out.printf("First of next Month = %tD %n", firstOfMonth);
+    
   }
 }
