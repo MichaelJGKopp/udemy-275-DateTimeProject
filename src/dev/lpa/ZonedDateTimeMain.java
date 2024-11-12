@@ -1,5 +1,6 @@
 package dev.lpa;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.HashSet;
@@ -10,7 +11,7 @@ public class ZonedDateTimeMain {
   
   public static void main(String[] args) {
     
-    System.setProperty("user.timezone", "America/Los_Angeles"); // set user timezone AT START
+    System.setProperty("user.timezone", "UTC"); // set user timezone AT START
     System.out.println(ZoneId.systemDefault());
     
     System.out.println("Number of TZs = " + ZoneId.getAvailableZoneIds().size());
@@ -37,5 +38,8 @@ public class ZonedDateTimeMain {
     
     LocalDateTime now = LocalDateTime.now();
     System.out.println(now);
+    
+    Instant instantNow = Instant.now();
+    System.out.println(instantNow);
   }
 }
