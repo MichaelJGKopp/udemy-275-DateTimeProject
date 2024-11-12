@@ -1,9 +1,6 @@
 package dev.lpa;
 
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.time.temporal.TemporalAdjusters;
@@ -80,5 +77,25 @@ public class ZonedDateTimeMain {
                                    .with(TemporalAdjusters.firstDayOfMonth());
     System.out.printf("First of next Month = %tD %n", firstOfMonth);
     
+    Period timePast = Period.between(LocalDate.EPOCH, dob.toLocalDate());
+    System.out.println("Epoch-DOB: " + timePast); // P50Y, 50 years since EPOCH
+    
+    Duration timeSince =
+      Duration.between(Instant.EPOCH, dob.toInstant(ZoneOffset.UTC)); // dob is given in UTC time
+    System.out.println(timeSince);  // PT438288H1M PeriodTime #Hours #Minutes
+    
+    System.out.println("-------------------------------------------");
+    LocalDateTime dob2 = dob.plusYears(2).plusMonths(4).plusDays(4)
+                           .plusHours(7).plusMinutes(14).plusSeconds(37);
+    
+    System.out.println("Your kid's birthdate, Here Time = " + dob2.format(
+      DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)));
+    
+    Period timePast2 = Period.between(LocalDate.EPOCH, dob2.toLocalDate());
+    System.out.println("Epoch-DOB: " + timePast2); // P50Y, 50 years since EPOCH
+    
+    Duration timeSince2 =
+      Duration.between(Instant.EPOCH, dob2.toInstant(ZoneOffset.UTC)); // dob is given in UTC time
+    System.out.println(timeSince2);  // PT438288H1M PeriodTime #Hours #Minutes
   }
 }
