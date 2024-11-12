@@ -2,6 +2,7 @@ package dev.lpa;
 
 import java.time.LocalDate;
 import java.time.Month;
+import java.time.Period;
 import java.time.temporal.ChronoField;
 import java.time.temporal.ChronoUnit;
 
@@ -66,5 +67,10 @@ public class Main {
     System.out.println();
     System.out.println("isLeapYear? " + today.isLeapYear());
     System.out.println("isLeapYear? " + May5.minusYears(2).isLeapYear());
+    
+    System.out.println("-------------------------------------------------");
+    May5.datesUntil(May5.plusDays(7)).forEach(System.out::println); // stream incl./excl.
+    System.out.println("-------------------------------------------------");
+    May5.datesUntil(May5.plusYears(1), Period.ofDays(7)).forEach(System.out::println);
   }
 }
